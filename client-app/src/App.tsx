@@ -29,8 +29,6 @@ class App extends Component {
     {this.state.values.map((value: any)=>(
          <List.Item key={value.id}>{value.name}</List.Item>
        ))}
-   <li></li>
-   
   </List>
     
      
