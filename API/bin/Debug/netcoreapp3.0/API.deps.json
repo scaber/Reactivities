@@ -24,7 +24,7 @@
     ".NETCoreApp,Version=v3.0": {
       "API/1.0.0": {
         "dependencies": {
-          "Aplication": "1.0.0",
+          "Application": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "3.1.0",
           "Persistence": "1.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.0.0.0",
@@ -300,6 +300,32 @@
         },
         "compile": {
           "API.dll": {}
+        }
+      },
+      "MediatR/8.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/MediatR.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/MediatR.dll": {}
+        }
+      },
+      "MediatR.Extensions.Microsoft.DependencyInjection/8.0.0": {
+        "dependencies": {
+          "MediatR": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
       "Microsoft.Bcl.AsyncInterfaces/1.1.0": {
@@ -1228,16 +1254,17 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
-      "Aplication/1.0.0": {
+      "Application/1.0.0": {
         "dependencies": {
           "Domain": "1.0.0",
+          "MediatR.Extensions.Microsoft.DependencyInjection": "8.0.0",
           "Persistence": "1.0.0"
         },
         "runtime": {
-          "Aplication.dll": {}
+          "Application.dll": {}
         },
         "compile": {
-          "Aplication.dll": {}
+          "Application.dll": {}
         }
       },
       "Domain/1.0.0": {
@@ -2871,6 +2898,20 @@
       "serviceable": false,
       "sha512": ""
     },
+    "MediatR/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cYSDJ2b/dIiwTLW/ZW/SQcXq9I3WF6KR4D0KN4hxWR08tZqcvcVS1bQXZbsANdQdTQfxx+ZFp5WkHLMyeoR5Zw==",
+      "path": "mediatr/8.0.0",
+      "hashPath": "mediatr.8.0.0.nupkg.sha512"
+    },
+    "MediatR.Extensions.Microsoft.DependencyInjection/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qGa+dbfrpk6y01swgc0uM+jG5tkb5xVeY1P4iByd3NQCDO7nmrMBnBRoMGhKlSigQ6iWXDiwOpzC01W4xrJxLg==",
+      "path": "mediatr.extensions.microsoft.dependencyinjection/8.0.0",
+      "hashPath": "mediatr.extensions.microsoft.dependencyinjection.8.0.0.nupkg.sha512"
+    },
     "Microsoft.Bcl.AsyncInterfaces/1.1.0": {
       "type": "package",
       "serviceable": true,
@@ -3487,7 +3528,7 @@
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
-    "Aplication/1.0.0": {
+    "Application/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

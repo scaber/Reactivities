@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{E4646A49-71AE-4095-BC60-01453AE820BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aplication", "Aplication\Aplication.csproj", "{94E5375F-F705-4305-87A3-4B217674B1F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{94E5375F-F705-4305-87A3-4B217674B1F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{EE5EB442-26D8-4497-8C02-E286EBEAF4BF}"
 EndProject
