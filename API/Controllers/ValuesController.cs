@@ -24,5 +24,13 @@ namespace API.Controllers
             var values=await _context.Values.ToListAsync();
             return Ok(values);
         }
+
+         [HttpGet]
+        public async Task<ActionResult <IEnumerable<Value>>> Get (int id){
+            var value=await _context.Values.FindAsync(id);
+            if (value==null)
+                return NotFound();
+            return Ok(value);
+        }
     }
 }

@@ -60,3 +60,8 @@ C:\Projects\Reactivities\API\bin\Debug\netcoreapp3.0\MediatR.dll
 C:\Projects\Reactivities\API\bin\Debug\netcoreapp3.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 C:\Projects\Reactivities\API\bin\Debug\netcoreapp3.0\Application.dll
 C:\Projects\Reactivities\API\bin\Debug\netcoreapp3.0\Application.pdb
+C:\Projects\Reactivities\API\bin\Debug\netcoreapp3.0\FluentValidation.dll
+C:\Projects\Reactivities\API\bin\Debug\netcoreapp3.0\FluentValidation.AspNetCore.dll
+C:\Projects\Reactivities\API\bin\Debug\netcoreapp3.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Projects\Reactivities\API\obj\Debug\netcoreapp3.0\API.MvcApplicationPartsAssemblyInfo.cs
+C:\Projects\Reactivities\API\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll

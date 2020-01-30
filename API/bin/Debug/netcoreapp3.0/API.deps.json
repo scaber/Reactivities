@@ -26,6 +26,7 @@
         "dependencies": {
           "Application": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "3.1.0",
+          "Newtonsoft.Json": "12.0.3",
           "Persistence": "1.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.0.0.0",
@@ -300,6 +301,50 @@
         },
         "compile": {
           "API.dll": {}
+        }
+      },
+      "FluentValidation/8.6.1": {
+        "dependencies": {
+          "System.ComponentModel.Annotations": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FluentValidation.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.6.1.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/FluentValidation.dll": {}
+        }
+      },
+      "FluentValidation.AspNetCore/8.6.1": {
+        "dependencies": {
+          "FluentValidation": "8.6.1",
+          "FluentValidation.DependencyInjectionExtensions": "8.6.1"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/FluentValidation.AspNetCore.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.6.1.0"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.0/FluentValidation.AspNetCore.dll": {}
+        }
+      },
+      "FluentValidation.DependencyInjectionExtensions/8.6.1": {
+        "dependencies": {
+          "FluentValidation": "8.6.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.6.1.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.dll": {}
         }
       },
       "MediatR/8.0.0": {
@@ -642,6 +687,17 @@
         "dependencies": {
           "System.Security.AccessControl": "4.5.0",
           "System.Security.Principal.Windows": "4.5.0"
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
       "runtime.native.System/4.3.0": {
@@ -1257,6 +1313,7 @@
       "Application/1.0.0": {
         "dependencies": {
           "Domain": "1.0.0",
+          "FluentValidation.AspNetCore": "8.6.1",
           "MediatR.Extensions.Microsoft.DependencyInjection": "8.0.0",
           "Persistence": "1.0.0"
         },
@@ -2898,6 +2955,27 @@
       "serviceable": false,
       "sha512": ""
     },
+    "FluentValidation/8.6.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-g0xw/YCVgJ1IYpBgKF9iuci/Arf6Dsq9H/WeeT9zaBpjrEA+Cr2GjWXHu1F0DKqVzp4J4hta4gGrRt6H4aESqQ==",
+      "path": "fluentvalidation/8.6.1",
+      "hashPath": "fluentvalidation.8.6.1.nupkg.sha512"
+    },
+    "FluentValidation.AspNetCore/8.6.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vRMnNKf8W7Rfj4eOw/OCqDvsUooflCPpv/OUZ86MTevrUoVNJ236XYEegNWsv3U1t4dUcGxpK94VQZYyuBciYQ==",
+      "path": "fluentvalidation.aspnetcore/8.6.1",
+      "hashPath": "fluentvalidation.aspnetcore.8.6.1.nupkg.sha512"
+    },
+    "FluentValidation.DependencyInjectionExtensions/8.6.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AsI9IrXuTWbiJdkxMqQn3ZIg3EqfX2RdtaR3vZsXOx+lvAwEVpCdRiKJiypiUV0tkPpH76058MIJRUtNistk1g==",
+      "path": "fluentvalidation.dependencyinjectionextensions/8.6.1",
+      "hashPath": "fluentvalidation.dependencyinjectionextensions.8.6.1.nupkg.sha512"
+    },
     "MediatR/8.0.0": {
       "type": "package",
       "serviceable": true,
@@ -3086,6 +3164,13 @@
       "sha512": "sha512-+FWlwd//+Tt56316p00hVePBCouXyEzT86Jb3+AuRotTND0IYn0OO3obs1gnQEs/txEnt+rF2JBGLItTG+Be6A==",
       "path": "microsoft.win32.registry/4.5.0",
       "hashPath": "microsoft.win32.registry.4.5.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
     },
     "runtime.native.System/4.3.0": {
       "type": "package",
