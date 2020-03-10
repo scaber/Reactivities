@@ -68,6 +68,8 @@ class ActivityStore {
           this.loadingInitial = false;
         })
         console.log(error);
+        
+        
       }
     }
   }
