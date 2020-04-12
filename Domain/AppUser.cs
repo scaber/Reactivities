@@ -6,5 +6,5 @@ namespace Domain
     public class AppUser:IdentityUser
     {
         public string Display { get; set; }
-    }
+     }
 }
