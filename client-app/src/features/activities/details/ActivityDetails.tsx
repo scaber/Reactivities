@@ -8,41 +8,32 @@ import ActivityDetailedHeader from './ActivityDetailedHeader';
 import ActivityDetailedInfo from './ActivityDetailedInfo';
 import ActivityDetailedChat from './ActivityDetailedChat';
 import ActivityDetailedSidebar from './ActivityDetailedSidebar';
+import { RootStoreContext } from '../../../app/stores/rootStore';
 
 interface DetailParams {
   id: string;
 }
 
 const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
-<<<<<<< HEAD
-  match,
+   match,
   history
-=======
-  match,history
->>>>>>> 2bd193f00efd2d175d9ac10d6f779712d9e043b0
+ 
 }) => {
-  const activityStore = useContext(ActivityStore);
-  const { activity, loadActivity, loadingInitial } = activityStore;
+   const rootStore = useContext(RootStoreContext);
+ 
+ 
+  const { activity, loadActivity, loadingInitial } = rootStore.activityStore;
 
   useEffect(() => {
     loadActivity(match.params.id);
-<<<<<<< HEAD
-  }, [loadActivity, match.params.id, history]);
-
-  if (loadingInitial) return <LoadingComponent content='Loading activity...' />;
-
-  if (!activity) return <h2>Activity not found</h2>;
-=======
+ 
   }, [loadActivity, match.params.id,history]);
 
   if (loadingInitial )
     return <LoadingComponent content='Loading activity...' />;
   if (!activity) 
-     return <h2>Activity Not Found</h2> 
-   
+     return <h2>Activity Not Found</h2>  
  
->>>>>>> 2bd193f00efd2d175d9ac10d6f779712d9e043b0
-
   return (
     <Grid>
       <Grid.Column width={10}>
