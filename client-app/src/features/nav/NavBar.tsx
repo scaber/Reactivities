@@ -21,7 +21,16 @@ const NavBar: React.FC = () => {
             to="/createActivity"
             positive
             content="Create Activity"
+          /> 
+        </Menu.Item>
+        <Menu.Item>
+          <Button
+            as={NavLink}
+            to="/haritaActivity"
+            positive
+            content="Harita "
           />
+          
         </Menu.Item>
         {user && (
           <Menu.Item position="right">

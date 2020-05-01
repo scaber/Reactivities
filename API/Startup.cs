@@ -21,6 +21,7 @@ using Persistence;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using AutoMapper;
 
 namespace API {
     public class Startup {
@@ -32,14 +33,21 @@ namespace API {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
-            services.AddDbContext<DataContext> (x => x.UseSqlServer (Configuration.GetConnectionString ("DefaultConnection")));
+            services.AddDbContext<DataContext> (opt =>
+            {
+                opt.UseLazyLoadingProxies();
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+
             services.AddCors (opt => {
                 opt.AddPolicy ("CorsPolicy", policy => {
                     policy.AllowAnyHeader ().AllowAnyMethod ().WithOrigins ("http://localhost:3000");
                 });
             });
-            services.AddControllers ();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddMediatR (typeof (List.Handler).Assembly);
+            services.AddAutoMapper(typeof (List.Handler));
             services.AddMvc (opt => 
             {
                 var policy =new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -52,9 +60,21 @@ namespace API {
             identityBuilder.AddEntityFrameworkStores<DataContext> ();
             identityBuilder.AddSignInManager<SignInManager<AppUser>> ();
 
+
+
             services.AddIdentity<IdentityUser, IdentityRole> ()
                 .AddEntityFrameworkStores<DataContext> ();
 
+
+            services.AddAuthorization(opt=>
+            {
+                opt.AddPolicy("IsActivityHost", policy =>
+                {
+                    policy.Requirements.Add(new IsHostRequirement());
+                });
+            });
+            services.AddTransient<IAuthorizationHandler,IsHostRequirementHandler>();
+            
             var key = new SymmetricSecurityKey (Encoding.UTF8.GetBytes (Configuration["TokenKey"]));
 
             services.AddAuthentication (x => {
