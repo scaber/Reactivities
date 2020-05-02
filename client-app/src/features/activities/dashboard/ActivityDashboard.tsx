@@ -4,11 +4,11 @@ import ActivityList from './ActivityList';
 import { observer } from 'mobx-react-lite';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { RootStoreContext } from '../../../app/stores/rootStore';
- 
+
 const ActivityDashboard: React.FC = () => {
 
   const rootStore = useContext(RootStoreContext);
-  const {loadActivities,loadingInitial} =rootStore.activityStore;
+  const {loadActivities, loadingInitial} = rootStore.activityStore;
 
   useEffect(() => {
     loadActivities();
