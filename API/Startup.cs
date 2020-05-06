@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using AutoMapper;
+using Infrastructure.Photos;
 
 namespace API {
     public class Startup {
@@ -134,6 +135,9 @@ namespace API {
             });
             services.AddScoped<IJWTGenerator, JWTGenerator> ();
             services.AddScoped<IUserAccessor,UserAccsessor>();
+
+            services.AddScoped<IPhotoAccessor,PhotoAccessor>(); 
+            services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
 
         }
 

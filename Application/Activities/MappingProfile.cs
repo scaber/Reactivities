@@ -1,4 +1,5 @@
- using AutoMapper;
+using System.Linq;
+using AutoMapper;
 using Domain;
 
 namespace Application.Activities
@@ -10,7 +11,8 @@ namespace Application.Activities
             CreateMap<Activity,ActivityDto>();
             CreateMap<UserActivity,AttendeeDto>()
             .ForMember(d => d.UserName, o=>o.MapFrom(s=>s.AppUser.UserName))
-            .ForMember(d=>d.Display, o=> o.MapFrom(s=>s.AppUser.Display));
+            .ForMember(d=>d.Display, o=> o.MapFrom(s=>s.AppUser.Display))
+            .ForMember(d=>d.Image, o=> o.MapFrom(s=>s.AppUser.Photos.FirstOrDefault(x=>x.IsMain).Url));
 
         }
     }
