@@ -6,17 +6,24 @@ import { format } from "date-fns";
 import { ActivityListItemAttendee } from "./ActivityListItemAttendee";
 
 const ActivityListItem: React.FC<{ activity: IActivity }> = ({ activity }) => {
-
-  const host =activity.attendees.filter(x=>x.isHost)[0];
+  const host = activity.attendees.filter((x) => x.isHost)[0];
   return (
     <Segment.Group>
       <Segment>
         <Item.Group>
           <Item>
-            <Item.Image size="tiny" circular src="/assets/user.png" />
+            <Item.Image
+              size="tiny"
+              circular
+              src={host.image || "/assets/user.png"}
+              style={{ marginBottom: 3 }}
+            />
             <Item.Content>
               <Item.Header as="a">{activity.title}</Item.Header>
-              <Item.Description>Hosted by {host.display} </Item.Description>
+              <Item.Description>
+                Hosted by {' '}
+                <Link to={`/profile/${host.userName}`}> {host.display} </Link>
+              </Item.Description>
               {activity.isHost && (
                 <Item.Description>
                   <Label
@@ -26,7 +33,7 @@ const ActivityListItem: React.FC<{ activity: IActivity }> = ({ activity }) => {
                   />
                 </Item.Description>
               )}
-                 {activity.isGoing && !activity.isHost && (
+              {activity.isGoing && !activity.isHost && (
                 <Item.Description>
                   <Label
                     basic
