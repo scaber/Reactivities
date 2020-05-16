@@ -7,10 +7,10 @@ namespace API.Controllers
 {
     public class ProfilesController:BaseController
     {
-        [HttpGet("{username}")]
-        public async Task<ActionResult<Profile>> Get (string username)
+        [HttpGet("{userName}")]
+        public async Task<ActionResult<Profile>> Get (string userName)
         {
-            return await Mediator.Send(new Details.Query{UserName =username});
+            return await Mediator.Send(new Details.Query{UserName =userName});
         }
 
     }

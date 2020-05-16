@@ -7,6 +7,7 @@ import { ActivityListItemAttendee } from "./ActivityListItemAttendee";
 
 const ActivityListItem: React.FC<{ activity: IActivity }> = ({ activity }) => {
   const host = activity.attendees.filter((x) => x.isHost)[0];
+   
   return (
     <Segment.Group>
       <Segment>
@@ -16,7 +17,7 @@ const ActivityListItem: React.FC<{ activity: IActivity }> = ({ activity }) => {
               size="tiny"
               circular
               src={host.image || "/assets/user.png"}
-              style={{ marginBottom: 3 }}
+              style={{ marginBottom: 0 }}
             />
             <Item.Content>
               <Item.Header as="a">{activity.title}</Item.Header>
@@ -37,7 +38,7 @@ const ActivityListItem: React.FC<{ activity: IActivity }> = ({ activity }) => {
                 <Item.Description>
                   <Label
                     basic
-                    color="orange"
+                    color="green"
                     content="You are going to this activity"
                   />
                 </Item.Description>
