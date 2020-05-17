@@ -1,16 +1,21 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using Application.Activities;
 using Application.Interfaces;
 using API.Middleware;
+using AutoMapper;
 using Domain;
 using FluentValidation.AspNetCore;
+using Infrastructure.Photos;
 using Infrastructure.Security;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,11 +23,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Persistence;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using AutoMapper;
-using Infrastructure.Photos;
+using System.Threading.Tasks;
+using API.SignalR;
 
 namespace API {
     public class Startup {
@@ -34,26 +36,24 @@ namespace API {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
-            services.AddDbContext<DataContext> (opt =>
-            {
-                opt.UseLazyLoadingProxies();
-                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            services.AddDbContext<DataContext> (opt => {
+                opt.UseLazyLoadingProxies ();
+                opt.UseSqlServer (Configuration.GetConnectionString ("DefaultConnection"));
             });
-
 
             services.AddCors (opt => {
                 opt.AddPolicy ("CorsPolicy", policy => {
-                    policy.AllowAnyHeader ().AllowAnyMethod ().WithOrigins ("http://localhost:3000");
+                    policy.AllowAnyHeader ().AllowAnyMethod ().WithOrigins ("http://localhost:3000").AllowCredentials();
                 });
             });
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers ().AddNewtonsoftJson ();
             services.AddMediatR (typeof (List.Handler).Assembly);
-            services.AddAutoMapper(typeof (List.Handler));
-            services.AddMvc (opt => 
-            {
-                var policy =new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                opt.Filters.Add(new AuthorizeFilter(policy));
-            })
+            services.AddAutoMapper (typeof (List.Handler));
+            services.AddSignalR ();
+            services.AddMvc (opt => {
+                    var policy = new AuthorizationPolicyBuilder ().RequireAuthenticatedUser ().Build ();
+                    opt.Filters.Add (new AuthorizeFilter (policy));
+                })
                 .AddFluentValidation (cfg => cfg.RegisterValidatorsFromAssemblyContaining<Create> ());
 
             var builder = services.AddIdentityCore<AppUser> ();
@@ -61,21 +61,16 @@ namespace API {
             identityBuilder.AddEntityFrameworkStores<DataContext> ();
             identityBuilder.AddSignInManager<SignInManager<AppUser>> ();
 
-
-
             services.AddIdentity<IdentityUser, IdentityRole> ()
                 .AddEntityFrameworkStores<DataContext> ();
 
-
-            services.AddAuthorization(opt=>
-            {
-                opt.AddPolicy("IsActivityHost", policy =>
-                {
-                    policy.Requirements.Add(new IsHostRequirement());
+            services.AddAuthorization (opt => {
+                opt.AddPolicy ("IsActivityHost", policy => {
+                    policy.Requirements.Add (new IsHostRequirement ());
                 });
             });
-            services.AddTransient<IAuthorizationHandler,IsHostRequirementHandler>();
-            
+            services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler> ();
+
             var key = new SymmetricSecurityKey (Encoding.UTF8.GetBytes (Configuration["TokenKey"]));
 
             services.AddAuthentication (x => {
@@ -90,6 +85,19 @@ namespace API {
                         IssuerSigningKey = key,
                         ValidateIssuer = false,
                         ValidateAudience = false
+                    };
+                    x.Events =new JwtBearerEvents
+                    {
+                        OnMessageReceived=context => 
+                        {
+                            var accessToken =context.Request.Query["access_token"];
+                            var path =context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/chat")))
+                            {
+                                context.Token=accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
                     };
                 });
             services.AddSwaggerGen (c => {
@@ -122,7 +130,7 @@ namespace API {
                                     Type = ReferenceType.SecurityScheme,
                                         Id = "Bearer"
                                 },
-                         
+
                                 Name = "Bearer",
                                 In = ParameterLocation.Header,
 
@@ -134,10 +142,10 @@ namespace API {
                 c.CustomSchemaIds (t => t.ToString ());
             });
             services.AddScoped<IJWTGenerator, JWTGenerator> ();
-            services.AddScoped<IUserAccessor,UserAccsessor>();
+            services.AddScoped<IUserAccessor, UserAccsessor> ();
 
-            services.AddScoped<IPhotoAccessor,PhotoAccessor>(); 
-            services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
+            services.AddScoped<IPhotoAccessor, PhotoAccessor> ();
+            services.Configure<CloudinarySettings> (Configuration.GetSection ("Cloudinary"));
 
         }
 
@@ -164,6 +172,8 @@ namespace API {
             app.UseEndpoints (endpoints => {
                 endpoints.MapControllers ();
             });
+            app.UseSignalR (routes => { routes.MapHub<ChatHub> ("/chat"); });
+
         }
     }
 }
