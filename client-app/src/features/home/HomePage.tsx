@@ -19,7 +19,7 @@ const HomePage = () => {
             alt='logo'
             style={{ marginBottom: 12 }}
           />
-          Reactivities
+          Aktivite Zamanı
         </Header>
         {isLoggedIn && user ? (
           <Fragment>

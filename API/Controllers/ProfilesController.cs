@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Profiles;
 using MediatR;
@@ -18,6 +19,14 @@ namespace API.Controllers
         {
             return await Mediator.Send(command);
         }
+
+
+          [HttpGet("{userName}/activities")]
+        public async Task<ActionResult<List<UserActivityDto>>> GetUserActivities (string userName,string predicate)
+        {
+            return await Mediator.Send(new ListActivities.Query{Username=userName,Predicate=predicate});
+        }
+
 
 
     }

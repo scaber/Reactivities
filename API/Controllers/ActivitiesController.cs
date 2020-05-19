@@ -14,8 +14,8 @@ namespace API.Controllers {
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<List<ActivityDto>>> List () {
-            return await Mediator.Send (new List.Query ());
+        public async Task<ActionResult<List.ActivitiesEnvelope>> List (int? limit,int? offset , bool isGoing, bool isHost, DateTime? startDate) {
+            return await Mediator.Send (new List.Query (limit,offset,isGoing,isHost,startDate));
         }
 
         [HttpGet ("{id}")]
