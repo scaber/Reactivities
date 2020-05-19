@@ -46,4 +46,5 @@ export interface IAttendee{
     display:string;
     image:string;
     isHost:boolean;
+    following?:boolean;
 }

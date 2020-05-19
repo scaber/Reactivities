@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Application.Activities;
 using Application.Interfaces;
 using API.Middleware;
+using API.SignalR;
 using AutoMapper;
 using Domain;
 using FluentValidation.AspNetCore;
@@ -23,8 +25,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Persistence;
-using System.Threading.Tasks;
-using API.SignalR;
+using Application.Profiles;
 
 namespace API {
     public class Startup {
@@ -43,7 +44,7 @@ namespace API {
 
             services.AddCors (opt => {
                 opt.AddPolicy ("CorsPolicy", policy => {
-                    policy.AllowAnyHeader ().AllowAnyMethod ().WithOrigins ("http://localhost:3000").AllowCredentials();
+                    policy.AllowAnyHeader ().AllowAnyMethod ().WithOrigins ("http://localhost:3000").AllowCredentials ();
                 });
             });
             services.AddControllers ().AddNewtonsoftJson ();
@@ -86,15 +87,12 @@ namespace API {
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
-                    x.Events =new JwtBearerEvents
-                    {
-                        OnMessageReceived=context => 
-                        {
-                            var accessToken =context.Request.Query["access_token"];
-                            var path =context.HttpContext.Request.Path;
-                            if (!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/chat")))
-                            {
-                                context.Token=accessToken;
+                    x.Events = new JwtBearerEvents {
+                        OnMessageReceived = context => {
+                            var accessToken = context.Request.Query["access_token"];
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty (accessToken) && (path.StartsWithSegments ("/chat"))) {
+                                context.Token = accessToken;
                             }
                             return Task.CompletedTask;
                         }
@@ -144,6 +142,7 @@ namespace API {
             services.AddScoped<IJWTGenerator, JWTGenerator> ();
             services.AddScoped<IUserAccessor, UserAccsessor> ();
 
+            services.AddScoped<IProfileReader, ProfileReader> ();
             services.AddScoped<IPhotoAccessor, PhotoAccessor> ();
             services.Configure<CloudinarySettings> (Configuration.GetSection ("Cloudinary"));
 
@@ -152,8 +151,7 @@ namespace API {
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure (IApplicationBuilder app, IWebHostEnvironment env) {
 
-            app.UseMiddleware<ErrorHandlingMiddleware> ();
-
+            
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
             }
@@ -164,6 +162,7 @@ namespace API {
                 c.RoutePrefix = string.Empty;
             });
             app.UseRouting ();
+            app.UseMiddleware (typeof (ErrorHandlingMiddleware));
 
             app.UseAuthentication ();
             app.UseCors ("CorsPolicy");

@@ -92,13 +92,13 @@ const Profiles = {
   deletePhoto: (id: string) => requests.del(`/photos/${id}`),
   updateProfile: (profile: Partial<IProfile>) =>
     requests.put(`/profiles`, profile),
-//   follow: (username: string) =>
-//     requests.post(`/profiles/${username}/follow`, {}),
-//   unfollow: (username: string) => requests.del(`/profiles/${username}/follow`),
-//   listFollowings: (username: string, predicate: string) =>
-//     requests.get(`/profiles/${username}/follow?predicate=${predicate}`),
-//   listActivities: (username: string, predicate: string) =>
-//     requests.get(`/profiles/${username}/activities?predicate=${predicate}`)
+  follow: (userName: string) =>
+    requests.post(`/profiles/${userName}/follow`, {}),
+  unfollow: (userName: string) => requests.del(`/profiles/${userName}/follow`),
+  listFollowings: (userName: string, predicate: string) =>
+    requests.get(`/profiles/${userName}/follow?predicate=${predicate}`),
+  listActivities: (userName: string, predicate: string) =>
+    requests.get(`/profiles/${userName}/activities?predicate=${predicate}`)
 };
 
 export default {
