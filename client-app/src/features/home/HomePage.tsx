@@ -6,6 +6,7 @@ import LoginForm from '../user/LoginForm';
 import RegisterForm from '../user/RegisterForm';
 
 const HomePage = () => {
+  const token=window.localStorage.getItem('jwt');
   const rootStore = useContext(RootStoreContext);
   const { user, isLoggedIn } = rootStore.userStore;
   const {openModal} = rootStore.modalStore;
@@ -21,7 +22,7 @@ const HomePage = () => {
           />
           Aktivite Zamanı
         </Header>
-        {isLoggedIn && user ? (
+        {isLoggedIn && user && token ? (
           <Fragment>
             <Header as='h2' inverted content={`Welcome back ${user.display}`} />
             <Button as={Link} to='/activities' size='huge' inverted>

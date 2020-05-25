@@ -23,6 +23,7 @@ namespace API
                     var context= Services.GetRequiredService<DataContext>();
                     var userManager= Services.GetRequiredService<UserManager<AppUser>>();
                     context.Database.Migrate() ;
+
                     Seed.SeedData(context,userManager).Wait();
                 }
                 catch (Exception ex)
@@ -37,8 +38,10 @@ namespace API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseKestrel(x=>x.AddServerHeader =false);
                     webBuilder.UseStartup<Startup>();
                 });
     }
