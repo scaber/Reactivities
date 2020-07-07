@@ -22,7 +22,8 @@
     "fetchSpec": "4.2.2"
   },
   "_requiredBy": [
-    "/ajv"
+    "/ajv",
+    "/schema-utils/ajv"
   ],
   "_resolved": "https://registry.npmjs.org/uri-js/-/uri-js-4.2.2.tgz",
   "_spec": "4.2.2",
