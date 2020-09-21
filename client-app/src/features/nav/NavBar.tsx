@@ -26,7 +26,7 @@ const NavBar: React.FC = () => {
          <Menu.Item>
           <Button
             as={NavLink}
-            to='/harita'
+            to='/map'
             positive
             content='Harita'
           />

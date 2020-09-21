@@ -19,7 +19,7 @@ import LoadingComponent from './LoadingComponent';
 import ModalContainer from '../common/modals/ModalContainer';
 import ProfilePage from '../../features/profiles/ProfilePage';
 import { PrivateRoute } from './PrivateRoute';
-import Harita from '../../features/harita/Harita';
+import Map from '../../features/harita/Map';
  
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
@@ -27,7 +27,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
   const {getUser} = rootStore.userStore;
 
   useEffect(() => {
-    if (token) {
+    if (token) { 
       getUser().finally(() => setAppLoaded())
     } else {
       setAppLoaded();
@@ -56,7 +56,8 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                   component={ActivityForm}
                 />
                 <PrivateRoute path='/profile/:userName' component={ProfilePage} />
-                <PrivateRoute path='/harita' component={Harita} />
+                {/* <PrivateRoute path='/harita' component={Harita} /> */}
+                <PrivateRoute path='/map' component={Map} />
                 <Route component={NotFound} />
               </Switch>
             </Container>

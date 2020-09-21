@@ -26,7 +26,7 @@ axios.interceptors.response.use(undefined, (error) => {
   if (status === 404) {
     history.push("/notfound");
   }
-  debugger;
+ 
   if (
     status === 401 &&
     headers["www-authenticate"] ===

@@ -17,8 +17,7 @@ const ActivityDashboard: React.FC = () => {
     totalPages,
   } = rootStore.activityStore;
 
-  const [loadingNext, setloadingNext] = useState(false);
-
+  const [loadingNext, setloadingNext] = useState(false); 
   const handleGetNext = () => {
     setloadingNext(true);
     setPage(page + 1);

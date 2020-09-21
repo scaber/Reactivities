@@ -13,6 +13,7 @@ export default class UserStore {
   @observable user: IUser | null = null;
 
   @computed get isLoggedIn() {
+     
     return !!this.user;
   }
 
@@ -44,7 +45,7 @@ export default class UserStore {
   @action getUser = async () => {
     try {
       const user = await agent.User.current();
-      runInAction(() => {
+      runInAction(() => { 
         this.user = user;
       });
     } catch (error) {
